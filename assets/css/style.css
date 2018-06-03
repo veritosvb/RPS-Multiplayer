@@ -1,0 +1,19 @@
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.here{
+    background-color: rgba(241, 4, 150, 0.863);
+    color:white;
+}
+
+.main .button{
+    background-color: rgba(241, 4, 150, 0.863);
+    color:white;
+}
+
+#chat{
+    height: 350px;
+}

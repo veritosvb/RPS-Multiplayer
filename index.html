@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+
+<html class="has-navbar-fixed-top" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>RPS Multiplayer</title>
+
+    <!--Bulma -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.0/css/bulma.min.css">
+
+    <!--Costume fonts -->
+    <script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
+
+    <!-- Firebase -->
+      <!-- Firebase JavaScript Link -->
+    <script src="https://www.gstatic.com/firebasejs/4.12.0/firebase.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.5.1/firebaseui.css" />
+
+    <link rel="stylesheet" href="assets/css/style.css">
+
+    <!--<link rel="stylesheet" href="assets/css/debug.css"> -->
+    <!-- jquery -->
+
+    <script
+    src="https://code.jquery.com/jquery-3.3.1.js"
+    integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+    crossorigin="anonymous"></script>
+</head>
+<body>
+<nav class="navbar is-fixed-top is-primary"  role="navigation" aria-label="dropdown navigation">
+    <div class="navbar-start">  
+        <a id= "uid" class="has-text-weight-bold has-text-white" > </a>
+    </div>
+    <div class="navbar-end">
+        <div class="navbar-item has-dropdown is-hoverable">
+           
+                <a class="navbar-link">
+                  Log In
+                </a>
+                <div class="navbar-dropdown is-boxed">
+                  <a id="click-signin" class="navbar-item">
+                    Sign In
+                  </a>
+                  <a class="navbar-item"  id="click-register">
+                    Register
+                  </a>
+                </div>
+              </div>
+            </div>
+            <hr class="navbar-divider">
+</nav>
+            
+    <!-- modal Register-->
+
+        <div class="modal" id="register">
+            <div class="modal-background"></div>
+            <div class="modal-card">
+                <header class="modal-card-head">
+                <p class="modal-card-title">Register Here</p>
+                <button class="delete" aria-label="close"></button>
+                </header>
+                <section class="modal-card-body">
+                        <div class="field">
+                            <p class="control has-icons-left has-icons-right">
+                                <input class="input" id="entry-displayname" type="email" placeholder="Display Name">
+                                <span class="icon is-small is-left">
+                                <i class="fas fa-envelope"></i>
+                                </span>
+                            </p>
+                        </div>
+                        <div class="field">
+                            <p class="control has-icons-left has-icons-right">
+                            <input class="input" id="entry-email" type="email" placeholder="Email">
+                            <span class="icon is-small is-left">
+                                <i class="fas fa-user"></i>
+                            </span>
+                            </p>
+                        </div>
+                        <div class="field">
+                            <p class="control has-icons-left">
+                                <input class="input" id="entry-password" type="password" placeholder="Password">
+                                <span class="icon is-small is-left">
+                                <i class="fas fa-lock"></i>
+                                </span>
+                            </p>
+                        </div>
+                </section>
+                <footer class="modal-card-foot">
+                <button class="button is-success" id="button-register">Sign Up</button>
+                <button class="button cancel">Cancel</button>
+                </footer>
+            </div>
+         </div>           
+  <!-- end modal Register-->
+             
+    <!-- modal sign in -->
+
+    <div class="modal" id="signIn">
+            <div class="modal-background"></div>
+            <div class="modal-card">
+                <header class="modal-card-head">
+                <p class="modal-card-title">Sign In</p>
+                <button  class="delete" aria-label="close"></button>
+                </header>
+                <section class="modal-card-body">
+                        <div class="field">
+                            <p class="control has-icons-left has-icons-right">
+                            <input class="input" id="email" type="email" placeholder="Email">
+                            <span class="icon is-small is-left">
+                                <i class="fas fa-user"></i>
+                            </span>
+                            </p>
+                        </div>
+                        <div class="field">
+                            <p class="control has-icons-left">
+                                <input class="input" id="password" type="password" placeholder="Password">
+                                <span class="icon is-small is-left">
+                                <i class="fas fa-lock"></i>
+                                </span>
+                            </p>
+                        </div>
+                </section>
+                <footer class="modal-card-foot">
+                <button class="button is-success" id="button-signIn">Sign Up</button>
+                <button class="button cancel">Cancel</button>
+                </footer>
+            </div>
+         </div>   
+
+<!-- end sign in -->
+
+<!-- errors -->
+
+<div id="errorh" class="modal">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+          <section class="modal-card-body">
+                <article class="media">
+                        <figure class="media-left">
+                                <span class="icon is-large">
+                                        <i class="fas fa-exclamation-triangle"></i>
+                                    </span>
+                        </figure>
+                        <div class="media-content">
+                            <div class="content">
+                                <h4 id="error"></h4>
+                                </div>
+                        </div>
+                    </article>   
+         </section>
+        </div>
+      </div>
+<!-- end errors -->
+
+
+<section class="hero ">
+    <div class="hero-body">
+        <div class="container"> 
+                <figure class="image center">
+                <img src="assets/images/logo.png" style="max-width: 300px;">
+            </figure>     
+        </div>
+</section>
+
+<section class="section has-background-light">
+        <div class="main container">
+                    <a class="join button is-primary is-large">
+                        <span class="icon is-large">
+                            <i class="fas fa-gamepad"></i>
+                        </span>
+                        <span id="join">Join Game</span>
+                    </a>
+                <div class="tile is-ancestor">
+                        <div class="tile is-vertical is-8">
+                          <div class="tile">
+                            <div class="tile is-parent is-vertical">
+                              <article class="tile is-child box">
+                                    <article class="media">
+                                            <figure class="media-left">
+                                                    <span class="icon is-large">
+                                                            <i class="fas fa-2x fa-check"></i>
+                                                        </span>
+                                            </figure>
+                                            <div class="media-content">
+                                                <div class="content">
+                                                    <h1 class="title is-sixe-5">Player 1</h1>
+                                                    </div>
+                                            </div>
+                                        </article>                                </article>
+                              <article class="tile is-child box">
+                                <article class="media">
+                                        <figure class="media-left">
+                                                <span class="icon is-large">
+                                                        <i class="fas fa-2x fa-check"></i>
+                                                    </span>
+                                        </figure>
+                                        <div class="media-content">
+                                            <div class="content">
+                                                <h1 class="title is-sixe-5">Player 2</h1>
+                                                </div>
+                                        </div>
+                                    </article>                               <!-- Put any content you want -->
+                              </article>
+                            </div>
+                            <div class="tile is-parent">
+                              <article class="tile is-child box">
+                                    <article class="media">
+                                            <figure class="media-left">
+                                                    <span class="icon is-large">
+                                                            <i class="fas fa-2x fa-check"></i>
+                                                        </span>
+                                            </figure>
+                                            <div class="media-content">
+                                                <div class="content">
+                                                    <h1 class="title is-sixe-5">Your selection</h1>
+                                                 </div>
+                                            </div>
+                                        </article>                             
+                                    </article>
+                            </div>
+                          </div>
+                          <div class="tile is-parent">
+                            <article class="tile is-child box">
+                                    <article class="media">
+                                            <figure class="media-left">
+                                                    <span class="icon is-large">
+                                                            <i class="fas fa-2x fa-check"></i>
+                                                        </span>
+                                            </figure>
+                                            <div class="media-content">
+                                                <div class="content">
+                                                    <h1 class="title is-sixe-5">Score</h1>
+                                                Bulma is a modern CSS framework from @jgthms, based on Flexbox.
+                                                Using Bulma, we can describe our website's design using just classes. ᕕ( ᐛ )ᕗ                </div>
+                                            </div>
+                                        </article>
+                            </article>
+                          </div>
+                        </div>
+                        <div class="tile is-parent">
+                            <article class="tile is-child box">
+                                <div class="media-content">
+                                    <div class="content">
+                                        <h1 class="title is-size-5"><i class="fas fa-comments"></i>   Chat</h1>
+                                        <div class="control">
+                                            <div id="chat" class="textarea is-primary" rows="10" type="text"></div>
+                                        </div> 
+                                        <br>
+                                        <div class="field">
+                                            <p class="control has-icons-left">  
+                                                <input class="input is-primary is-rounded" id="chatmessage" type="text" placeholder="Send Message"> 
+                                                <span class="icon is-small is-right">
+                                                <i class="fas fa-check"></i>
+                                                </span>
+                                            </p>
+                                        </div>
+                                    </div>     
+                                </div>
+                             </article>
+                        </div>
+                      </div>
+        </div>
+    </section>
+
+
+
+
+<footer class="footer">
+<div class="container">
+    <div class="content has-text-centered">
+    <p>
+        <strong>RPS MultiPlayer Game</strong> by <a href="https://jgthms.com">Vero Velez</a>. Made with
+        <a href="http://opensource.org/licenses/mit-license.php">Bulma</a>
+    </p>
+    </div>
+</div>
+</footer>
+
+
+  <!-- Application content-->
+  <script src="assets/scripts/app.js"></script>
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+</body>
+</html>
