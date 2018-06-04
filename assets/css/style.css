@@ -14,9 +14,12 @@
     color:white;
 }
 
-p{
-    padding: 0;
-}
+
 #chat{
     height: 350px;
+}
+
+#chat p{
+margin: 0px;
+
 }
