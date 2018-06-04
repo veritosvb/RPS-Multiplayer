@@ -105,6 +105,7 @@
                 <button  class="delete" aria-label="close"></button>
                 </header>
                 <section class="modal-card-body">
+                    <form>
                         <div class="field">
                             <p class="control has-icons-left has-icons-right">
                             <input class="input" id="email" type="email" placeholder="Email">
@@ -121,6 +122,7 @@
                                 </span>
                             </p>
                         </div>
+                        </form>
                 </section>
                 <footer class="modal-card-foot">
                 <button class="button is-success" id="button-signIn">Sign Up</button>
@@ -166,7 +168,7 @@
 
 <section class="section has-background-light">
         <div class="main container">
-                    <a class="button is-primary is-large">
+                    <a class="button here is-primary is-large">
                         <span class="icon is-large">
                             <i class="fas fa-gamepad"></i>
                         </span>
@@ -180,64 +182,97 @@
                                     <article class="media">
                                             <figure class="media-left">
                                                     <span class="icon is-large">
-                                                            <i class="fas fa-2x fa-check"></i>
+                                                            <i class="fas fa-2x fa-play"></i>
                                                         </span>
                                             </figure>
                                             <div class="media-content">
                                                 <div class="content">
-                                                    <h1 class="title is-sixe-5">Player 1</h1>
+                                                    <h1 id="player1" class="title is-size-5">Player 1</h1>
+                                                    <div class="content has-text-centered">
+                                                        <a class="button game is-info is-medium">
+                                                        <span class="icon is-medium">
+                                                            <i class="far fa-hand-rock"></i>
+                                                        </span>
+                                                            <span id="join">Rock</span>
+                                                        </a>
+                                                    </div>   
+                                                    <div class="content has-text-centered"> 
+                                                        <a class="button game is-info is-medium">
+                                                            <span class="icon is-medium">
+                                                                <i class="far fa-hand-paper"></i>
+                                                            </span>
+                                                            <span id="join"> Paper</span>
+                                                        </a>
+                                                    </div>   
+                                                    <div class="content has-text-centered "> 
+                                                        <a class="button game is-info is-medium">
+                                                            <span class="icon is-medium">
+                                                                <i class="far fa-hand-scissors"></i>
+                                                            </span>
+                                                            <span id="join">Scissors</span>
+                                                        </a>
                                                     </div>
-                                            </div>
-                                        </article>                                </article>
-                              <article class="tile is-child box">
-                                <article class="media">
-                                        <figure class="media-left">
-                                                <span class="icon is-large">
-                                                        <i class="fas fa-2x fa-check"></i>
-                                                    </span>
-                                        </figure>
-                                        <div class="media-content">
-                                            <div class="content">
-                                                <h1 class="title is-sixe-5">Player 2</h1>
                                                 </div>
-                                        </div>
-                                    </article>                               <!-- Put any content you want -->
+                                            </div>
+                                        </article>                               
+                                     </article>
+                              <article class="tile is-child box">
+                                    <article class="media">
+                                            <figure class="media-left">
+                                                    <span class="icon is-large">
+                                                            <i class="fas fa-2x fa-dice"></i>
+                                                        </span>
+                                            </figure>
+                                            <div class="media-content">
+                                                <div class="content">
+                                                    <h1 id="player2"class="title is-size-5">Player 2</h1>
+                                                    <div class="content has-text-centered">
+                                                        <a class="button game is-info is-medium">
+                                                        <span class="icon is-medium">
+                                                            <i class="far fa-hand-rock"></i>
+                                                        </span>
+                                                            <span id="join">Rock</span>
+                                                        </a>
+                                                    </div>   
+                                                    <div class="content has-text-centered"> 
+                                                        <a class="button game is-info is-medium">
+                                                            <span class="icon is-medium">
+                                                                <i class="far fa-hand-paper"></i>
+                                                            </span>
+                                                            <span id="join"> Paper</span>
+                                                        </a>
+                                                    </div>   
+                                                    <div class="content has-text-centered "> 
+                                                        <a class="button game is-info is-medium">
+                                                            <span class="icon is-medium">
+                                                                <i class="far fa-hand-scissors"></i>
+                                                            </span>
+                                                            <span id="join">Scissors</span>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </article>                                            <!-- Put any content you want -->
                               </article>
                             </div>
                             <div class="tile is-parent">
                               <article class="tile is-child box">
                                     <article class="media">
                                             <figure class="media-left">
-                                                    <span class="icon is-large">
-                                                            <i class="fas fa-2x fa-check"></i>
+                                                    <span class="icon is-medium">
+                                                            <i class="fas fa-check"></i>
                                                         </span>
                                             </figure>
                                             <div class="media-content">
                                                 <div class="content">
-                                                    <h1 class="title is-sixe-5">Your selection</h1>
+                                                    <h1 class="title is-size-5">Score</h1>
                                                  </div>
                                             </div>
                                         </article>                             
                                     </article>
                             </div>
                           </div>
-                          <div class="tile is-parent">
-                            <article class="tile is-child box">
-                                    <article class="media">
-                                            <figure class="media-left">
-                                                    <span class="icon is-large">
-                                                            <i class="fas fa-2x fa-check"></i>
-                                                        </span>
-                                            </figure>
-                                            <div class="media-content">
-                                                <div class="content">
-                                                    <h1 class="title is-sixe-5">Score</h1>
-                                                Bulma is a modern CSS framework from @jgthms, based on Flexbox.
-                                                Using Bulma, we can describe our website's design using just classes. ᕕ( ᐛ )ᕗ                </div>
-                                            </div>
-                                        </article>
-                            </article>
-                          </div>
+   
                         </div>
                         <div class="tile is-parent">
                             <article class="tile is-child box">
@@ -245,7 +280,7 @@
                                     <div class="content">
                                         <h1 class="title is-size-5"><i class="fas fa-comments"></i>   Chat</h1>
                                         <div class="control">
-                                            <div id="chat" class="textarea is-primary" rows="10" type="text" style="overflow-y: auto"></div>
+                                            <div id="chat" class="textarea is-primary" type="text" style="overflow-y: scroll"></div>
                                         </div> 
                                         <br>
                                         <div class="field">

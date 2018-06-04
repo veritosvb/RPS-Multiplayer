@@ -9,17 +9,42 @@
     color:white;
 }
 
-.main .button{
+.main .here{
     background-color: rgba(241, 4, 150, 0.863);
     color:white;
 }
 
 
 #chat{
-    height: 350px;
+    height: 450px;
+    resize: none;
 }
 
 #chat p{
 margin: 0px;
 
+}
+
+.btn-circle.btn-xl {
+    width: 70px;
+    height: 40px;
+    padding: 40px;
+    border-radius: 255px;
+    font-size: 84px;
+    line-height: 0;
+}
+
+.btn-circle {
+    
+    width: 80px;
+    height: 80px;
+    padding: 6px 0px;
+    border-radius: 25px;
+    text-align: center;
+    font-size: 45px;
+    line-height: 5;
+}
+
+.game{
+    width:100%;
 }
