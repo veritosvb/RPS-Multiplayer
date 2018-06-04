@@ -90,7 +90,7 @@ firebase.auth().onAuthStateChanged(function(user) {
 //Chat
 function sendChatMessage(){
     var messageField = $("#chatmessage").val();
-    $("#chatmessage").text(" ");
+    $("#chatmessage").val("");
     chat.push().set({
         name: displayN,
         message: messageField
