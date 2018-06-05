@@ -28,7 +28,7 @@ var userRef; // will be used  to reference the object where we will store this p
 var wins1, wins2, losses1, losses2, choise1, choise2;
 var displayName; //local player name
 var otherName;// remote player name
-var userNumber;// my player name
+var userNumber =0 ;// my player name
 
 //listener that a game is going on. Whenever we start a game turn goes to 1 and we add the players game
  database.ref().on("value", function(snapshot) {
@@ -77,7 +77,7 @@ turn.on('value', function(snapshot) {
         
         if(result == "win"){
             $("#gameMessages").text(ch1 + " beats " + ch2 + " "+snapshot.val()[1].name + " you won");
-            wins1++;
+            ++wins1;
             losses2++;
             
         }if(result == "lose"){
@@ -93,18 +93,20 @@ turn.on('value', function(snapshot) {
         $("#tdLossesp2").text(losses2);
         $("#tdLossesp1").text(losses1);
   
-        snapshot.val()[1].update({
-            win:wins1,
-            losses:losses1
+        firebase.database().ref("player/1").update({
+            wins: wins1,
+            losses: losses1
         });
 
-        snapshot.val()[2].update({
-            win:wins2,
-            losses:losses2
+        firebase.database().ref("player/2").update({
+            wins: wins2,
+            losses: losses2
         });
 
         $("#join_text").text("Try again");
         $("#join").show();
+     
+
 
     });
 
@@ -113,18 +115,18 @@ turn.on('value', function(snapshot) {
     player.on('child_removed', function(snapshot) {
         // Find player that was removed
         var key = snapshot.key;
-        $("#join").text("Join Game");
+        $("#join_text").text("Join Game");
         // Show 'player has disconnected' on chat
-        $("gameMessages").text("Player" + key + "has left");
-        startgame = false;
-        // Empty turn message
-        $("gameMessages").text('Waiting for another player to join...');
+        $("#gameMessages").text("Player" + key + " has left");
+        $("#gameMessages").append(' Waiting for another player to join...');
+    
         // Display beginning message
         // Empty score
         $('#tdWinsp1').text("");
         $('#tdWinsp2').text("");
         $('#tdLossesp1').text("");
         $('#tdLossesp2').text("");
+        resetColors();
     });
 
 //once only license once for data
@@ -165,7 +167,7 @@ turn.on('value', function(snapshot) {
 function addPlayer(count) {
     var ocount;
     console.log( 'You are Player ' + count);
-    $("#player"+count).text(displayName);
+   
     // Create new child with player number
         if(count ==1)
             ocount =2;
@@ -180,6 +182,7 @@ function addPlayer(count) {
     userNumber = count;
     otherName = ocount;
     userRef = firebase.database().ref("player/"+count);
+    $("#player"+count).text(displayName);
     // Allows for disconnect
     userRef.onDisconnect().remove();
     // Sets children of player number
@@ -310,11 +313,17 @@ function signIn(){
 
     $('#join').on("click", function () {
         //you can join this app after auth or with default name... later I could change it
-        console.log("Joining Game");
+        resetColors();
+        var para = $(this).attr("key");
+        console.log(para);
+        $(this).hide("slow");
+        
         setPlayer();
         
     });
     $('.game').on("click", function () {
+        if(userNumber !==0){
+        resetColors();
         var q = $(this).attr("data");
         console.log("this is the selection from the button: " + q);
 
@@ -333,15 +342,27 @@ function signIn(){
                 choice: q
             }); 
 				turnNum++;
-				turn.set(turnNum);
+                turn.set(turnNum);
+           
+        } else {
+            $("#error").text("Wait for your turn!!!!");
+            $('#errorh').modal('show');
         }
+    }else{
+        $("#error").text("Press <Join Game> to continue!!!!");
+        $('#errorh').modal('show');
+
+    }
 
 
 
     });  
 
 
-
+function resetColors(){
+    $(".game").removeClass("is-primary");
+    $(".game").addClass("is-info");
+}
 function cleanModal(){
     $('#entry-displayname').text("");
     $('#entry-email').text("");
