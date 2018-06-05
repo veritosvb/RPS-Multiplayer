@@ -34,7 +34,8 @@ var userNumber;// my player name
  database.ref().on("value", function(snapshot) {
     var turnVal = snapshot.child('turn').val();
     if (turnVal !== null && player == undefined) {
-        console.log('Please wait until other players finish, then refresh screen.');
+        $("#error").text('Please wait until other players finish, then refresh screen.');
+        $('#errorh').modal('show'); 
     }
     });
 
@@ -91,7 +92,19 @@ turn.on('value', function(snapshot) {
         $("#tdWinsp2").text(wins2);
         $("#tdLossesp2").text(losses2);
         $("#tdLossesp1").text(losses1);
+  
+        snapshot.val()[1].update({
+            win:wins1,
+            losses:losses1
+        });
+
+        snapshot.val()[2].update({
+            win:wins2,
+            losses:losses2
+        });
+
         $("#join_text").text("Try again");
+        $("#join").show();
 
     });
 
@@ -100,7 +113,7 @@ turn.on('value', function(snapshot) {
     player.on('child_removed', function(snapshot) {
         // Find player that was removed
         var key = snapshot.key;
-        $("#join_text").text("Join Game");
+        $("#join").text("Join Game");
         // Show 'player has disconnected' on chat
         $("gameMessages").text("Player" + key + "has left");
         startgame = false;
@@ -139,7 +152,10 @@ turn.on('value', function(snapshot) {
           addPlayer(player);
           // Start turn by setting turn to 1
             turn.set(1);
+      } else if(playerObj.val()[1] !== undefined && playerObj.val()[2] !== undefined){
+          turn.set(1);
       }
+
     });
 }
 
@@ -311,7 +327,8 @@ function signIn(){
 
         if(turnNum == userNumber){
             console.log("Player " + turnNum + " turn");
-            $(this).addClass("choise");
+            $(this).removeClass("is-info");
+            $(this).addClass("is-primary");
             userRef.update({
                 choice: q
             }); 
