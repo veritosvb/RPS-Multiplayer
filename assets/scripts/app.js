@@ -273,6 +273,9 @@ function signIn(){
 
     function addChatMessage(name, message){
         $("#chat").append( "<p><strong>" + name + ":</strong> " + message + "</p>");
+      
+        $('#chat').scrollTop($('#chat')[0].scrollHeight); 
+    
     }
 
     $("#click-register").on('click', function() { 
